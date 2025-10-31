@@ -1,11 +1,12 @@
 export type Usuario = {
     id: number;
-    nomeCompleto: string;
-    email: string;
+    nome: string;
     cpf: string;
-    enderecoId: number;
+    endereco: number;
+    dataNascimento: string;
+    tipo: string;
     criadoEm?: string;
-    atualiazadoEm?: string;
+    atualizadoEm?: string;
 };
 
 export type Endereco = {
@@ -17,6 +18,7 @@ export type Endereco = {
   cidade: string;
   estado: string;
   cep: string;
+  localizacao?: any; // vai ser usado mais para frente com o supabase
 };
 
 export type Farmacia = {
@@ -27,6 +29,7 @@ export type Farmacia = {
   cnpj: string;
   horarioFuncionamento: string;
   enderecoId: number;
+  ativo?: boolean;
   criadoEm?: string;
   atualizadoEm?: string;
 };
@@ -36,6 +39,7 @@ export type Medicamento = {
   nome: string;
   principioAtivo: string;
   dosagem: string;
+  categoria?: string;
   criadoEm?: string;
   atualizadoEm?: string;
 };
