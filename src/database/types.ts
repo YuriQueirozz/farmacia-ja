@@ -1,4 +1,3 @@
-import { ApiResponse } from './../../node_modules/@supabase/storage-js/dist/module/lib/vectors/types.d';
 export type Usuario = {
     id: number;
     nomeCompleto: string;
