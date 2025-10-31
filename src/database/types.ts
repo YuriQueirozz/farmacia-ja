@@ -1,3 +1,4 @@
+import { ApiResponse } from './../../node_modules/@supabase/storage-js/dist/module/lib/vectors/types.d';
 export type Usuario = {
     id: number;
     nomeCompleto: string;
@@ -38,4 +39,11 @@ export type Medicamento = {
   dosagem: string;
   criadoEm?: string;
   atualizadoEm?: string;
+};
+
+export type ApiResponse<T> = {
+    success: boolean;
+    message: string;
+    data?: T;
+    error?: string;
 };
