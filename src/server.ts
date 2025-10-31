@@ -1,4 +1,8 @@
+import "dotenv/config";
 import { app } from "./app";
-import userRouter from "./routes/usuariosRoutes";
 
-app.use('/users', userRouter)
+const PORT = process.env.PORT || 3003;
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
