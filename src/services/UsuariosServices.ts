@@ -49,7 +49,7 @@ export class UsuariosServices {
     async criarUsuario(body: any): Promise<ApiResponse<Usuario>> {
         console.log("Service: criando novo usuário...");
 
-        const { email, senha, nome, cpf, tipo, endereco, dataNascimento } = body;
+        const { email, senha, nome, cpf, tipo, endereco, data_nascimento } = body;
 
         // Validar campos obrigatórios
         if(!email || ! senha || !nome || !cpf || !tipo) {
@@ -61,8 +61,8 @@ export class UsuariosServices {
         }
 
         // Normalizar e validar a data de nascimento
-        const dataNascimentoNormalizado = normalizeDateToISOStringOrNull(dataNascimento);
-        if (dataNascimento != null && dataNascimentoNormalizado === null) {
+        const dataNascimentoNormalizado = normalizeDateToISOStringOrNull(data_nascimento);
+        if (data_nascimento != null && dataNascimentoNormalizado === null) {
             return {
                 success: false,
                 message: "Data de nascimento inválida",
