@@ -1,12 +1,12 @@
 export type Usuario = {
-    id: number;
+    id: string;
     nome: string;
     cpf: string;
-    endereco: number;
-    dataNascimento: string;
+    endereco: string | null;
+    data_nascimento: string | null;
     tipo: string;
-    criadoEm?: string;
-    atualizadoEm?: string;
+    criadoEm?: string | null;
+    atualizadoEm?: string | null;
 };
 
 export type Endereco = {
