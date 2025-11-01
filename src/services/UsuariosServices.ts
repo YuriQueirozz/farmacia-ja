@@ -60,7 +60,8 @@ export class UsuariosServices {
             };
         }
 
-        // Normalizar e validar a data de nascimento
+        // Normalizar e validar a data de nascimento 
+        // formato ISO ou nulo
         const dataNascimentoNormalizado = normalizeDateToISOStringOrNull(data_nascimento);
         if (data_nascimento != null && dataNascimentoNormalizado === null) {
             return {

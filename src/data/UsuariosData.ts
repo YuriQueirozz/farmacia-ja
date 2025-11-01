@@ -10,6 +10,7 @@ export class UsuariosData {
         return { data, error };
     }
 
+    // CRIAR USUÁRIO NO SUPABASE AUTH E SALVAR O PERFIL NA TABELA USUARIOS COM O MESMO ID
     async criarUsuario(usuario: {
         email: string,
         senha: string,
@@ -29,17 +30,20 @@ export class UsuariosData {
                 email_confirm: true,
             });
 
+        // SE FALHAR NA CRIAÇÃO DO USUÁRIO NO AUTH, INTERROMPE O PROCESSO
         if(authError || !authUser?.user?.id){
             console.error("Erro ao criar usuário no Auth:", authError?.message);
             return { data: null, error: authError };
         }
 
+        // PEGA O UUID GERADO PELO SUPABASE AUTH (ID DO USUÁRIO NO NOSSO SISTEMA)
         const userId = authUser.user.id;
         console.log("Usuário criado no Auth com ID:", userId);
 
         // DADOS DE PERFIL DO USUÁRIO NA TABELA DO SUPABASE 
+        // MONTA O OBJETO PARA INSERIR NA TABELA 
         const payload = {
-            id: userId, // VAI USAR O ID GERADO PELO AUTH (auth.users)
+            id: userId, // VAI USAR O ID (uuid) GERADO PELO AUTH (auth.users)
             nome: usuario.nome,
             cpf: usuario.cpf,
             tipo: usuario.tipo,
