@@ -59,6 +59,17 @@ export class UsuariosData {
             .select("*")
             .single();
 
-        return { data: data as Usuario, error };
+        // SE DER ERRO, DELETA O USUÁRIO CRIADO NO AUTH
+        // RESOLVENDO BUG DE USUÁRIO CRIADO NO AUTH MAS NÃO NA TABELA
+        if (error) {
+            console.error("Erro ao salvar perfil. Iniciando rollback...", error.message);
+
+            await supabase.auth.admin.deleteUser(userId);
+            console.log("Rollback concluído.");
+
+            return { data: null, error }; // RETORNA O ERRO PARA O SERVICES 
+        }
+
+        return { data: data as Usuario, error: null };
     }
 }
