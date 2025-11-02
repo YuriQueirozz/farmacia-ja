@@ -10,3 +10,5 @@ app.use(cors());
 
 app.use("/usuarios", usuariosRoutes);
 app.use("/medicamentos", medicamentosRoutes);
+
+export default app;
