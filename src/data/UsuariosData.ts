@@ -1,5 +1,5 @@
 import { supabase } from "../database/supabaseClient";
-import type { Usuario } from "../database/types";
+import type { Usuario } from "../types/types";
 
 export class UsuariosData {
     async buscarUsuarios() {

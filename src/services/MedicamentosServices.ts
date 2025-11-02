@@ -1,4 +1,4 @@
-import { ApiResponse, Medicamento } from "../database/types";
+import { ApiResponse, Medicamento } from "../types/types";
 import { MedicamentosData } from "../data/MedicamentosData";
 
 const medicamentosData = new MedicamentosData();
