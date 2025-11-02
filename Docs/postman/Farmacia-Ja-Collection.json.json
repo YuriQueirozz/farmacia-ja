@@ -235,7 +235,250 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo dos medicamentos",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3003/medicamentos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3003",
+									"path": [
+										"medicamentos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "9573"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2565-0Ma579qTbr0g0c4tz42yXXlAWZY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Nov 2025 00:33:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Medicamentos encontrados\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nome\": \"Brometo de Ipratrópio 0,02mg\",\n            \"principio_ativo\": \"Brometo de Ipratrópio\",\n            \"dosagem\": \"0,02 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 2,\n            \"nome\": \"Brometo de Ipratrópio 0,25mg\",\n            \"principio_ativo\": \"Brometo de Ipratrópio\",\n            \"dosagem\": \"0,25 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 3,\n            \"nome\": \"Dipropionato de Beclometasona 200mcg\",\n            \"principio_ativo\": \"Dipropionato de Beclometasona\",\n            \"dosagem\": \"200 mcg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 4,\n            \"nome\": \"Dipropionato de Beclometasona 250mcg\",\n            \"principio_ativo\": \"Dipropionato de Beclometasona\",\n            \"dosagem\": \"250 mcg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 5,\n            \"nome\": \"Dipropionato de Beclometasona 50mcg\",\n            \"principio_ativo\": \"Dipropionato de Beclometasona\",\n            \"dosagem\": \"50 mcg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 6,\n            \"nome\": \"Sulfato de Salbutamol 100mcg\",\n            \"principio_ativo\": \"Sulfato de Salbutamol\",\n            \"dosagem\": \"100 mcg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 7,\n            \"nome\": \"Sulfato de Salbutamol 5mg\",\n            \"principio_ativo\": \"Sulfato de Salbutamol\",\n            \"dosagem\": \"5 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Asma\"\n        },\n        {\n            \"id\": 8,\n            \"nome\": \"Cloridrato de Metformina 500mg\",\n            \"principio_ativo\": \"Cloridrato de Metformina\",\n            \"dosagem\": \"500 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes\"\n        },\n        {\n            \"id\": 9,\n            \"nome\": \"Cloridrato de Metformina 500mg (acao prolongada)\",\n            \"principio_ativo\": \"Cloridrato de Metformina\",\n            \"dosagem\": \"500 mg - acao prolongada\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes\"\n        },\n        {\n            \"id\": 10,\n            \"nome\": \"Cloridrato de Metformina 850mg\",\n            \"principio_ativo\": \"Cloridrato de Metformina\",\n            \"dosagem\": \"850 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes\"\n        },\n        {\n            \"id\": 11,\n            \"nome\": \"Glibenclamida 5mg\",\n            \"principio_ativo\": \"Glibenclamida\",\n            \"dosagem\": \"5 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes\"\n        },\n        {\n            \"id\": 12,\n            \"nome\": \"Insulina Humana Regular 100UI/ml\",\n            \"principio_ativo\": \"Insulina Humana Regular\",\n            \"dosagem\": \"100 UI/ml\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes\"\n        },\n        {\n            \"id\": 13,\n            \"nome\": \"Insulina Humana NPH 100UI/ml\",\n            \"principio_ativo\": \"Insulina Humana NPH\",\n            \"dosagem\": \"100 UI/ml\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes\"\n        },\n        {\n            \"id\": 14,\n            \"nome\": \"Atenolol 25mg\",\n            \"principio_ativo\": \"Atenolol\",\n            \"dosagem\": \"25 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 15,\n            \"nome\": \"Besilato de Anlodipino 5mg\",\n            \"principio_ativo\": \"Besilato de Anlodipino\",\n            \"dosagem\": \"5 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 16,\n            \"nome\": \"Captopril 25mg\",\n            \"principio_ativo\": \"Captopril\",\n            \"dosagem\": \"25 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 17,\n            \"nome\": \"Cloridrato de Propranolol 40mg\",\n            \"principio_ativo\": \"Cloridrato de Propranolol\",\n            \"dosagem\": \"40 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 18,\n            \"nome\": \"Hidroclorotiazida 25mg\",\n            \"principio_ativo\": \"Hidroclorotiazida\",\n            \"dosagem\": \"25 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 19,\n            \"nome\": \"Losartana Potassica 50mg\",\n            \"principio_ativo\": \"Losartana Potassica\",\n            \"dosagem\": \"50 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 20,\n            \"nome\": \"Maleato de Enalapril 10mg\",\n            \"principio_ativo\": \"Maleato de Enalapril\",\n            \"dosagem\": \"10 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 21,\n            \"nome\": \"Espironolactona 25mg\",\n            \"principio_ativo\": \"Espironolactona\",\n            \"dosagem\": \"25 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 22,\n            \"nome\": \"Furosemida 40mg\",\n            \"principio_ativo\": \"Furosemida\",\n            \"dosagem\": \"40 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 23,\n            \"nome\": \"Succinato de Metoprolol 25mg\",\n            \"principio_ativo\": \"Succinato de Metoprolol\",\n            \"dosagem\": \"25 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Hipertensao\"\n        },\n        {\n            \"id\": 24,\n            \"nome\": \"Acetato de Medroxiprogesterona 150mg\",\n            \"principio_ativo\": \"Acetato de Medroxiprogesterona\",\n            \"dosagem\": \"150 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Anticoncepcao\"\n        },\n        {\n            \"id\": 25,\n            \"nome\": \"Etinilestradiol 0,03mg + Levonorgestrel 0,15mg\",\n            \"principio_ativo\": \"Etinilestradiol + Levonorgestrel\",\n            \"dosagem\": \"0,03mg + 0,15mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Anticoncepcao\"\n        },\n        {\n            \"id\": 26,\n            \"nome\": \"Noretisterona 0,35mg\",\n            \"principio_ativo\": \"Noretisterona\",\n            \"dosagem\": \"0,35 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Anticoncepcao\"\n        },\n        {\n            \"id\": 27,\n            \"nome\": \"Valerato de Estradiol 5mg + Enantato de Noretisterona 50mg\",\n            \"principio_ativo\": \"Valerato de Estradiol + Enantato de Noretisterona\",\n            \"dosagem\": \"5mg + 50mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Anticoncepcao\"\n        },\n        {\n            \"id\": 28,\n            \"nome\": \"Alendronato de Sodio 70mg\",\n            \"principio_ativo\": \"Alendronato de Sodio\",\n            \"dosagem\": \"70 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Osteoporose\"\n        },\n        {\n            \"id\": 29,\n            \"nome\": \"Sinvastatina 10mg\",\n            \"principio_ativo\": \"Sinvastatina\",\n            \"dosagem\": \"10 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Dislipidemia\"\n        },\n        {\n            \"id\": 30,\n            \"nome\": \"Sinvastatina 20mg\",\n            \"principio_ativo\": \"Sinvastatina\",\n            \"dosagem\": \"20 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Dislipidemia\"\n        },\n        {\n            \"id\": 31,\n            \"nome\": \"Sinvastatina 40mg\",\n            \"principio_ativo\": \"Sinvastatina\",\n            \"dosagem\": \"40 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Dislipidemia\"\n        },\n        {\n            \"id\": 32,\n            \"nome\": \"Carbidopa 25mg + Levodopa 250mg\",\n            \"principio_ativo\": \"Carbidopa + Levodopa\",\n            \"dosagem\": \"25mg + 250mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Doenca de Parkinson\"\n        },\n        {\n            \"id\": 33,\n            \"nome\": \"Cloridrato de Benserazida 25mg + Levodopa 100mg\",\n            \"principio_ativo\": \"Cloridrato de Benserazida + Levodopa\",\n            \"dosagem\": \"25mg + 100mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Doenca de Parkinson\"\n        },\n        {\n            \"id\": 34,\n            \"nome\": \"Maleato de Timolol 2,5mg\",\n            \"principio_ativo\": \"Maleato de Timolol\",\n            \"dosagem\": \"2,5 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Glaucoma\"\n        },\n        {\n            \"id\": 35,\n            \"nome\": \"Maleato de Timolol 5mg\",\n            \"principio_ativo\": \"Maleato de Timolol\",\n            \"dosagem\": \"5 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Glaucoma\"\n        },\n        {\n            \"id\": 36,\n            \"nome\": \"Budesonida 32mcg\",\n            \"principio_ativo\": \"Budesonida\",\n            \"dosagem\": \"32 mcg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Rinite\"\n        },\n        {\n            \"id\": 37,\n            \"nome\": \"Budesonida 50mcg\",\n            \"principio_ativo\": \"Budesonida\",\n            \"dosagem\": \"50 mcg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Rinite\"\n        },\n        {\n            \"id\": 38,\n            \"nome\": \"Dipropionato de Beclometasona 50mcg/dose\",\n            \"principio_ativo\": \"Dipropionato de Beclometasona\",\n            \"dosagem\": \"50 mcg/dose\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Rinite\"\n        },\n        {\n            \"id\": 39,\n            \"nome\": \"Dapagliflozina 10mg\",\n            \"principio_ativo\": \"Dapagliflozina\",\n            \"dosagem\": \"10 mg\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Diabetes Mellitus + Doenca Cardiovascular\"\n        },\n        {\n            \"id\": 40,\n            \"nome\": \"Absorvente Higienico\",\n            \"principio_ativo\": \"Absorvente Higienico\",\n            \"dosagem\": \"Unidade\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Dignidade Menstrual\"\n        },\n        {\n            \"id\": 41,\n            \"nome\": \"Fralda Geriatrica\",\n            \"principio_ativo\": \"Fralda Geriatrica\",\n            \"dosagem\": \"Unidade\",\n            \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n            \"categoria\": \"Incontinencia Urinaria\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Criar medicamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"MEDICAMENTO TESTE 2\",\r\n  \"principio_ativo\": \"TESTE 2\",\r\n  \"dosagem\": \"500mg\",\r\n  \"categoria\": \"Rinite\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/medicamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"medicamentos"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo de medicamento criado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"MEDICAMENTO TESTE 2\",\r\n  \"principio_ativo\": \"TESTE 2\",\r\n  \"dosagem\": \"500mg\",\r\n  \"categoria\": \"Rinite\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3003/medicamentos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3003",
+									"path": [
+										"medicamentos"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "270"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10e-H8MLsL94PPz42WcLaW256jmUiP0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Nov 2025 14:02:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Medicamento criado com sucesso\",\n    \"data\": {\n        \"id\": 43,\n        \"nome\": \"MEDICAMENTO TESTE 2\",\n        \"principio_ativo\": \"TESTE 2\",\n        \"dosagem\": \"500mg\",\n        \"criado_em\": \"2025-11-02T14:02:30.810022+00:00\",\n        \"atualizado_em\": \"2025-11-02T14:02:30.810022+00:00\",\n        \"categoria\": \"Rinite\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Buscar medicamento por ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"MEDICAMENTO TESTE 2\",\r\n  \"principio_ativo\": \"TESTE 2\",\r\n  \"dosagem\": \"500mg\",\r\n  \"categoria\": \"Rinite\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3003/medicamentos/34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"medicamentos",
+								"34"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo de medicamento listado por ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"MEDICAMENTO TESTE 2\",\r\n  \"principio_ativo\": \"TESTE 2\",\r\n  \"dosagem\": \"500mg\",\r\n  \"categoria\": \"Rinite\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3003/medicamentos/34",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3003",
+									"path": [
+										"medicamentos",
+										"34"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "222"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"de-+A/Lhg8BGXWIuPi6rpbuBxt6Avw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Nov 2025 14:29:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 34,\n    \"nome\": \"Maleato de Timolol 2,5mg\",\n    \"principio_ativo\": \"Maleato de Timolol\",\n    \"dosagem\": \"2,5 mg\",\n    \"criado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n    \"atualizado_em\": \"2025-10-28T23:53:42.056913+00:00\",\n    \"categoria\": \"Glaucoma\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -277,7 +520,7 @@
 		{
 			"key": "supabase_key",
 			"value": "",
-			"type": "default",
+			"disabled": true,
 			"description": "Apenas para testes quando necessário"
 		}
 	]
