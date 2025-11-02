@@ -27,8 +27,13 @@ export type Farmacia = {
   telefone: string;
   entregas: boolean;
   cnpj: string;
+<<<<<<< HEAD
   // horarioFuncionamento: string;
   endereco_id: number;
+=======
+  horarioFuncionamento: string;
+  enderecoId: number;
+>>>>>>> 42d8a717c20b05aef9d4e4c400ea1120ebd324c7
   ativo?: boolean;
   criadoEm?: string;
   atualizadoEm?: string;
@@ -49,4 +54,8 @@ export type ApiResponse<T> = {
   message: string;
   data?: T;
   error?: any;
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 42d8a717c20b05aef9d4e4c400ea1120ebd324c7
