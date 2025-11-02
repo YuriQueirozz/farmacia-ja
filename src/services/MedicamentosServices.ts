@@ -1,8 +1,11 @@
 import { ApiResponse, Medicamento } from "../types/types";
 import { MedicamentosData } from "../data/MedicamentosData";
+import { supabase } from "../database/supabaseClient";
 
 const medicamentosData = new MedicamentosData();
 export class MedicamentosServices {
+  //Lista todos os medicamentos
+
   async listarMedicamentos(): Promise<ApiResponse<Medicamento[]>> {
     console.log("Service: buscando medicamentos...");
 
@@ -22,6 +25,21 @@ export class MedicamentosServices {
       data: data as Medicamento[],
     };
   }
+
+  //Busca medicamento por ID
+
+  public async buscarMedicamentoPorId(id: number) {
+    const { data, error } = await supabase
+      .from("medicamentos")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) throw new Error(error.message);
+    return data;
+  }
+
+  //Criar medicamento
 
   async criarMedicamento(body: any): Promise<ApiResponse<Medicamento>> {
     console.log("Service: criando novo medicamento...");
