@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "206f684e-42e3-45c5-a4b8-c951537664a9",
+		"name": "Farmácia Já API",
+		"description": "API do sistema **Farmácia Já**.  \nFornece recursos para gestão de usuários, farmácias e medicamentos, com autenticação usando Supabase.\n\nStatus do Projeto:\n\n- Usuários: GET, POST (autenticação integrada ao Supabase)\n    \n- Farmácias: Em desenvolvimento\n    \n- Medicamentos: Em desenvolvimento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49690742",
+		"_collection_link": "https://grupo-trabalho-api.postman.co/workspace/Farm%25C3%25A1cia-J%25C3%25A1~fd6fbe9d-7a54-4a21-ab1c-32303fcf0616/collection/49690742-206f684e-42e3-45c5-a4b8-c951537664a9?action=share&source=collection_link&creator=49690742"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": []
+		},
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Listar usuários autenticados",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body has success true\", () => {\r",
+									"  const json = pm.response.json();\r",
+									"  pm.expect(json.success).to.eql(true);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo dos usuários",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3003/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3003",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "581"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"245-DHByf8aOY0KdnV5NWUrLMaqEgYI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Nov 2025 00:12:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Usuários encontrados\",\n    \"data\": [\n        {\n            \"id\": \"d2f3c23e-23d0-4f27-a6b0-692d68ae601d\",\n            \"nome\": \"Usuário Teste\",\n            \"cpf\": \"98765432100\",\n            \"endereco\": \"Rua Teste, 123\",\n            \"data_nascimento\": null,\n            \"tipo\": \"cliente\",\n            \"criado_em\": \"2025-11-01T20:11:18.776008+00:00\",\n            \"atualizado_em\": \"2025-11-01T20:11:18.776008+00:00\"\n        },\n        {\n            \"id\": \"41ac35a7-b3fd-471a-918d-0881dd9b852a\",\n            \"nome\": \"Usuário Teste 2\",\n            \"cpf\": \"98765432122\",\n            \"endereco\": \"Rua Teste, 123\",\n            \"data_nascimento\": \"2000-02-10\",\n            \"tipo\": \"cliente\",\n            \"criado_em\": \"2025-11-01T20:53:36.063562+00:00\",\n            \"atualizado_em\": \"2025-11-01T20:53:36.063562+00:00\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Criar usuário autenticado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"postman@email.com\",\r\n    \"senha\": \"123456\",\r\n    \"nome\": \"Postman\",\r\n    \"cpf\": \"12365432122\",\r\n    \"tipo\": \"cliente\",\r\n    \"endereco\": \"Rua Postman, Centro, 01, São Paulo, MG\",\r\n    \"data_nascimento\": \"2000-02-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3003/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"usuarios"
+							]
+						},
+						"description": "### Criar usuário\n\nEste endpoint cria um usuário em duas etapas:\n\n1. Cria o usuário no Supabase Auth\n    \n2. Cria seu perfil na tabela `usuarios`\n    \n\n#### Regras:\n\n- Email deve ser único\n    \n- CPF deve ser único\n    \n- Data de nascimento validada para ISO\n    \n\n#### Possíveis erros:\n\n- `VALIDATION_ERROR`\n    \n- `Erro ao criar usuário no Auth`\n    \n- `Erro ao inserir perfil na tabela usuarios` (rollback executado)"
+					},
+					"response": [
+						{
+							"name": "Exemplo de usuário autenticado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"postman@email.com\",\r\n  \"senha\": \"123456\",\r\n  \"nome\": \"Postman\",\r\n  \"cpf\": \"12365432122\",\r\n  \"tipo\": \"cliente\",\r\n  \"endereco\": \"Rua Postman, Centro, 01, São Paulo, MG\",\r\n  \"data_nascimento\": \"2000-02-10\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3003/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3003",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "345"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"159-h/b1ja8enFZa7hIgisrCu2t9Cu0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 02 Nov 2025 00:22:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Usuário criado com sucesso\",\n    \"data\": {\n        \"id\": \"90817341-4955-4993-a556-89a51445006c\",\n        \"nome\": \"Postman\",\n        \"cpf\": \"12365432122\",\n        \"endereco\": \"Rua Postman, Centro, 01, São Paulo, MG\",\n        \"data_nascimento\": \"2000-02-10\",\n        \"tipo\": \"cliente\",\n        \"criado_em\": \"2025-11-02T00:21:59.165829+00:00\",\n        \"atualizado_em\": \"2025-11-02T00:21:59.165829+00:00\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Farmácias",
+			"item": []
+		},
+		{
+			"name": "Medicamentos",
+			"item": [
+				{
+					"name": "Listar medicamentos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3003/medicamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"medicamentos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilidades",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "",
+			"description": "URL da API local"
+		},
+		{
+			"key": "supabase_key",
+			"value": "",
+			"type": "default",
+			"description": "Apenas para testes quando necessário"
+		}
+	]
+}
