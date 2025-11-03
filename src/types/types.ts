@@ -35,13 +35,13 @@ export type Farmacia = {
 };
 
 export type Medicamento = {
-    id: number;
-    nome: string;
-    principioAtivo: string;
-    dosagem: string;
-    categoria?: string;
-    criadoEm?: string;
-    atualizadoEm?: string;
+  id: number;
+  nome: string;
+  principio_ativo: string;
+  dosagem: string;
+  categoria?: string;
+  criadoEm?: string;
+  atualizadoEm?: string;
 };
 
 export type ApiResponse<T> = {
