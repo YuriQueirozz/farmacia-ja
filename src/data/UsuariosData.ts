@@ -10,6 +10,19 @@ export class UsuariosData {
         return { data, error };
     }
 
+    async buscarUsuarioPorId(id: string) {
+        console.log("Data: buscando usuário por ID na tabela usuários");
+
+        const { data, error } = await supabase
+            .from("usuarios")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+        return { data, error };
+    }
+
+
     // CRIAR USUÁRIO NO SUPABASE AUTH E SALVAR O PERFIL NA TABELA USUARIOS COM O MESMO ID
     async criarUsuario(usuario: {
         email: string,

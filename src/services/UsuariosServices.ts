@@ -46,6 +46,42 @@ export class UsuariosServices {
         };
     }
 
+    async buscarUsuarioPorId(id: string): Promise<ApiResponse<Usuario>> {
+        console.log(`Service: buscando usuário com ID ${id}...`);
+
+        if(!id) {
+            return {
+                success: false,
+                message: "ID não fornecido",
+                error: "VALIDATION_ERROR",
+            };
+        }
+
+        const { data, error } = await usuariosData.buscarUsuarioPorId(id);
+
+        if(error) {
+            return {
+                success: false,
+                message: "Erro ao buscar usuário",
+                error: error.message,
+            };
+        }
+
+        if(!data) {
+            return {
+                success: false,
+                message: "Usuário não encontrado",
+                error: "NOT_FOUND",
+            };
+        }
+
+        return {
+            success: true,
+            message: "Usuário encontrado",
+            data: data as Usuario,
+        };
+    }
+
     async criarUsuario(body: any): Promise<ApiResponse<Usuario>> {
         console.log("Service: criando novo usuário...");
 
