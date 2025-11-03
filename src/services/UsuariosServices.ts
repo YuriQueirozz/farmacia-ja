@@ -84,6 +84,25 @@ export class UsuariosServices {
         const { data, error } = await usuariosData.criarUsuario(payload);
 
         if(error) {
+
+            // VERIFICANDO ERRO DE CPF DUPLICADO NO SUPABASE
+            if(error.code === "23505" || error.message?.includes("cpf")) {
+                return {
+                    success: false,
+                    message: "CPF já cadastrado",
+                    error: "DUPLICATE_CPF",
+                }
+            }
+
+            // EMAIL DUPLICADO NO SUPABASE AUTH
+            if(error.code === "DUPLICATE_EMAIL") {
+                return {
+                    success: false,
+                    message: "Email já cadastrado",
+                    error: "DUPLICATE_EMAIL",
+                }
+            }
+
             return {
                 success: false,
                 message: "Erro ao criar usuário no banco",

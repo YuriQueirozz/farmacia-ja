@@ -32,18 +32,28 @@ export class UsuariosData {
 
         // SE FALHAR NA CRIAÇÃO DO USUÁRIO NO AUTH, INTERROMPE O PROCESSO
         if(authError || !authUser?.user?.id){
+
+            // VERIFICAR ERRO DE EMAIL DUPLICADO NO SUPABASE AUTH
+            if(authError && authError.message?.toLowerCase().includes("email address has already been registered")) {
+                console.error("Email já cadastrado no Auth: ", authError.message);
+                return {
+                    data: null,
+                    error: { code: "DUPLICATE_EMAIL", message: "Email já castrado" }
+                };
+            }
+
             console.error("Erro ao criar usuário no Auth:", authError?.message);
             return { data: null, error: authError };
         }
 
         // PEGA O UUID GERADO PELO SUPABASE AUTH (ID DO USUÁRIO NO NOSSO SISTEMA)
-        const userId = authUser.user.id;
-        console.log("Usuário criado no Auth com ID:", userId);
+        const usuarioId = authUser.user.id;
+        console.log("Usuário criado no Auth com ID:", usuarioId);
 
         // DADOS DE PERFIL DO USUÁRIO NA TABELA DO SUPABASE 
         // MONTA O OBJETO PARA INSERIR NA TABELA 
         const payload = {
-            id: userId, // VAI USAR O ID (uuid) GERADO PELO AUTH (auth.users)
+            id: usuarioId, // VAI USAR O ID (uuid) GERADO PELO AUTH (auth.users)
             nome: usuario.nome,
             cpf: usuario.cpf,
             tipo: usuario.tipo,
@@ -64,7 +74,7 @@ export class UsuariosData {
         if (error) {
             console.error("Erro ao salvar perfil. Iniciando rollback...", error.message);
 
-            await supabase.auth.admin.deleteUser(userId);
+            await supabase.auth.admin.deleteUser(usuarioId);
             console.log("Rollback concluído.");
 
             return { data: null, error }; // RETORNA O ERRO PARA O SERVICES 
