@@ -19,6 +19,21 @@ export class UsuariosController {
         }
     };
 
+    public filtrarUsuarios = async (req: Request, res: Response) => {
+        console.log("Controller: recebida requisição GET /usuarios", req.query);
+
+        try {
+            const response = await usuariosServices.filtrarUsuarios(req.query);
+            return res.status(200).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao filtrar usuários.",
+                error: error.message,
+            });
+        }
+    };
+
     public buscarUsuarioPorId = async (req: Request, res: Response) => {
         console.log("Controller: recebida requisição GET /usuarios/:id");
 

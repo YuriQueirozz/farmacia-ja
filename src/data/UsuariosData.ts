@@ -10,6 +10,31 @@ export class UsuariosData {
         return { data, error };
     }
 
+    async filtrarUsuarios(filtros: Record<string, any>) {
+        console.log("Data: filtrando usuários por: ", filtros);
+
+        let query = supabase.from("usuarios").select("*");
+
+        // Aplicar filtros dinamicamente
+        if (filtros.nome) {
+            query = query.ilike("nome", `%${filtros.nome}%`);
+        }
+
+        if (filtros.cpf) {
+            query = query.ilike("cpf", `%${filtros.cpf}%`);
+        }
+
+        if (filtros.email) {
+            query = query.ilike("email!", `%${filtros.email}%`);
+        }
+
+        const { data, error } = await query;
+
+        console.log("Resultado filtragem:", { count: data?.length || 0, error });
+
+        return { data, error };
+    }
+    
     async buscarUsuarioPorId(id: string) {
         console.log("Data: buscando usuário por ID na tabela usuários");
 
@@ -67,6 +92,7 @@ export class UsuariosData {
         // MONTA O OBJETO PARA INSERIR NA TABELA 
         const payload = {
             id: usuarioId, // VAI USAR O ID (uuid) GERADO PELO AUTH (auth.users)
+            email: usuario.email,
             nome: usuario.nome,
             cpf: usuario.cpf,
             tipo: usuario.tipo,

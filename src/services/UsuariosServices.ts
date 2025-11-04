@@ -46,6 +46,32 @@ export class UsuariosServices {
         };
     }
 
+    async filtrarUsuarios(queryParams: any): Promise<ApiResponse<Usuario[]>> {
+        console.log("Service: filtrando usuários...");
+
+        const filtros = {
+            nome: queryParams.nome,
+            cpf: queryParams.cpf,
+            email: queryParams.email,
+        };
+
+        const{ data, error } = await usuariosData.filtrarUsuarios(filtros);
+
+        if(error) {
+            return {
+                success: false,
+                message: "Erro ao filtrar usuários",
+                error: error.message,
+            };
+        }
+
+        return {
+            success: true,
+            message: "Usuários filtrados encontrados",
+            data: data as Usuario[],
+        };
+    }
+
     async buscarUsuarioPorId(id: string): Promise<ApiResponse<Usuario>> {
         console.log(`Service: buscando usuário com ID ${id}...`);
 
