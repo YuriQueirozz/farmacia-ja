@@ -54,4 +54,32 @@ export class FarmaciasController {
             });
         }
     };
+
+    
+    public buscarFarmaciasPorBairro = async (req: Request, res: Response) => {
+        try {
+            const { bairro } = req.params;
+
+            if (!bairro) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Você precisa informar o bairro!",
+                });
+            }
+
+            const response = await farmaciasServices.buscarFarmaciasPorBairro(bairro);
+
+            if (!response.success) {
+                return res.status(400).json(response);
+            }
+
+            return res.status(200).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao buscar farmácias",
+                error: error.message,
+            });
+        }
+    };
 }
