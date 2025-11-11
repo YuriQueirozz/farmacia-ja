@@ -23,4 +23,34 @@ export class FarmaciasData {
       return { data: null, error: err };
     }
   }
+
+  public async criarFarmacia(payload: Partial<Farmacia>): Promise<{ data?: Farmacia | null; error?: any }> {
+    try {
+      // Não enviar o id
+      const insertPayload = {
+        nome: payload.nome,
+        telefone: payload.telefone ?? null,
+        entregas: payload.entregas ?? false,
+        cnpj: payload.cnpj,
+        endereco_id: payload.endereco_id,
+        ativo: typeof payload.ativo === "boolean" ? payload.ativo : true,
+      };
+
+      const { data, error } = await supabase
+        .from("farmacias")
+        .insert(insertPayload)
+        .select("*")
+        .single();
+
+      if (error) {
+        console.error("Data: erro ao inserir farmácia:", error);
+        return { data: null, error };
+      }
+
+      return { data: data as Farmacia, error: null };
+    } catch (err) {
+      console.error("Data: erro inesperado ao inserir farmácia:", err);
+      return { data: null, error: err };
+    }
+  }
 }
