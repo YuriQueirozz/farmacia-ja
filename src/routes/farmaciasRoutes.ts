@@ -7,6 +7,9 @@ const farmaciasController = new FarmaciasController();
 // GET /farmacias
 router.get("/", farmaciasController.listarFarmacias);
 
+// GET /farmacias/bairro/:bairro
+router.get("/bairro/:bairro", farmaciasController.buscarFarmaciasPorBairro);
+
 // POST /farmacias
 router.post("/", farmaciasController.criarFarmacia);
 
