@@ -41,4 +41,38 @@ export class FarmaciasServices {
       };
     }
   }
+
+  
+  public async criarFarmacia(payload: Partial<Farmacia>): Promise<ApiResponse<Farmacia>> {
+    try {
+      const { data, error } = await farmaciasData.criarFarmacia(payload);
+
+      if (error) {
+        return {
+          success: false,
+          message: "Erro ao inserir farmácia no banco de dados.",
+          error: error.message ?? error,
+        };
+      }
+
+      if (!data) {
+        return {
+          success: false,
+          message: "Não foi possível criar a farmácia.",
+        };
+      }
+
+      return {
+        success: true,
+        message: "Farmácia criada com sucesso.",
+        data,
+      };
+    } catch (err: any) {
+      return {
+        success: false,
+        message: "Erro interno no serviço ao criar farmácia.",
+        error: err.message ?? err,
+      };
+    }
+  }
 }
