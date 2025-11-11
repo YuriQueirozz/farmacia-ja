@@ -75,4 +75,40 @@ export class FarmaciasServices {
       };
     }
   }
+
+  
+  async buscarFarmaciasPorBairro(bairro: string): Promise<ApiResponse<Farmacia[]>> {
+    try {
+      const { data, error } = await farmaciasData.buscarFarmaciasPorBairro(bairro);
+
+      if (error) {
+        return {
+          success: false,
+          message: "Deu erro ao buscar as farmácias",
+          error: error,
+        };
+      }
+
+      // se não achar nada, vai retornar array vazio
+      if (!data || data.length === 0) {
+        return {
+          success: true,
+          message: "Não tem farmácia cadastrada nesse bairro",
+          data: [],
+        };
+      }
+
+      return {
+        success: true,
+        message: "Farmácias encontradas!",
+        data: data,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: "Erro ao buscar farmácias",
+        error: error.message,
+      };
+    }
+  }
 }
