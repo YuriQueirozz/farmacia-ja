@@ -53,4 +53,34 @@ export class FarmaciasData {
       return { data: null, error: err };
     }
   }
+
+  
+  async buscarFarmaciasPorBairro(bairro: string) {
+    try {
+      // faz ligação com a tabela enderecos para pegar o bairro
+      const { data, error } = await supabase
+        .from("farmacias")
+        .select(`
+          *,
+          enderecos!inner (
+            bairro
+          )
+        `)
+        // Para não ser CaseSensitive
+        .ilike("enderecos.bairro", bairro)
+        // ordenar por id
+        .order("id");
+
+      console.log("Bairro buscado:", bairro);
+      console.log("Resultado da busca:", data);
+
+      if (error) {
+        return { data: null, error };
+      }
+
+      return { data, error: null };
+    } catch (err) {
+      return { data: null, error: err };
+    }
+  }
 }
