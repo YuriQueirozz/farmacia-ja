@@ -7,4 +7,7 @@ const farmaciasController = new FarmaciasController();
 // GET /farmacias
 router.get("/", farmaciasController.listarFarmacias);
 
+// POST /farmacias
+router.post("/", farmaciasController.criarFarmacia);
+
 export default router;
