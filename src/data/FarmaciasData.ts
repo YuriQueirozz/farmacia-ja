@@ -71,9 +71,6 @@ export class FarmaciasData {
         // ordenar por id
         .order("id");
 
-      console.log("Bairro buscado:", bairro);
-      console.log("Resultado da busca:", data);
-
       if (error) {
         return { data: null, error };
       }
