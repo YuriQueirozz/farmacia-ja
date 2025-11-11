@@ -18,4 +18,40 @@ export class FarmaciasController {
             });
         }
     };
+
+    public criarFarmacia = async (req: Request, res: Response) => {
+        try {
+            const { nome, endereco_id, entregas, cnpj, telefone, ativo } = req.body;
+
+            if (!nome || typeof endereco_id === "undefined" || typeof entregas === "undefined" || !cnpj) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Campos obrigatórios ausentes: nome, endereco_id, entregas, cnpj",
+                });
+            }
+
+            // Nao inserir o  id
+            const response = await farmaciasServices.criarFarmacia({
+                nome,
+                endereco_id,
+                entregas,
+                cnpj,
+                telefone,
+                ativo,
+            });
+
+            if (!response.success) {
+                const status = response.error ? 500 : 400;
+                return res.status(status).json(response);
+            }
+
+            return res.status(201).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao criar farmácia.",
+                error: error.message,
+            });
+        }
+    };
 }
