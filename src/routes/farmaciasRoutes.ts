@@ -10,6 +10,9 @@ router.get("/", farmaciasController.listarFarmacias);
 // GET /farmacias/bairro/:bairro
 router.get("/bairro/:bairro", farmaciasController.buscarFarmaciasPorBairro);
 
+// GET /farmacias/:id
+router.get("/:id", farmaciasController.buscarFarmaciaPorId);
+
 // POST /farmacias
 router.post("/", farmaciasController.criarFarmacia);
 
