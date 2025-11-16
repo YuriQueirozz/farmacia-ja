@@ -80,4 +80,23 @@ export class FarmaciasData {
       return { data: null, error: err };
     }
   }
+
+  // buscar farmacia por id
+  async buscarFarmaciaPorId(id: number) {
+    try {
+      const { data, error } = await supabase
+        .from("farmacias")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        return { data: null, error };
+      }
+
+      return { data, error: null };
+    } catch (err) {
+      return { data: null, error: err };
+    }
+  }
 }
