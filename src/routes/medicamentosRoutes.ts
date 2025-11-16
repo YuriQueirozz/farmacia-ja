@@ -24,4 +24,9 @@ router.post("/", (req, res) =>
   medicamentosController.criarMedicamento(req, res)
 );
 
+// DELETE medicamento
+router.delete("/:id", (req, res) =>
+  medicamentosController.deletarMedicamento(req, res)
+);
+
 export default router;

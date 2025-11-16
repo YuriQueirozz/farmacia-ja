@@ -74,6 +74,7 @@ export class MedicamentosController {
     }
   };
 
+  //GET por filtro
   public buscarPorFiltros = async (req: Request, res: Response) => {
     try {
       const response = await medicamentosServices.buscarPorFiltros(req.query);
@@ -82,6 +83,29 @@ export class MedicamentosController {
       return res.status(500).json({
         success: false,
         message: "Erro ao filtrar medicamentos",
+        error: error.message,
+      });
+    }
+  };
+
+  //DELETE medicamentos
+  public deletarMedicamento = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      const response = await medicamentosServices.deletarMedicamento(
+        Number(id)
+      );
+
+      if (!response.success) {
+        return res.status(400).json(response);
+      }
+
+      return res.status(200).json(response);
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: "Erro ao deletar medicamento",
         error: error.message,
       });
     }

@@ -103,4 +103,46 @@ export class MedicamentosServices {
       data,
     };
   }
+
+  //DELETE medicamentos por id
+
+  async deletarMedicamento(id: number) {
+    if (!id) {
+      return {
+        success: false,
+        message: "ID é obrigatório",
+        error: "INVALID_ID",
+      };
+    }
+
+    // aqui verifica se o medicamento existe ou não
+    const existente = await supabase
+      .from("medicamentos")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (existente.error) {
+      return {
+        success: false,
+        message: "Medicamento não encontrado",
+        error: existente.error.message,
+      };
+    }
+
+    const { error } = await medicamentosData.deletarMedicamento(id);
+
+    if (error) {
+      return {
+        success: false,
+        message: "Erro ao deletar medicamento",
+        error: error.message,
+      };
+    }
+
+    return {
+      success: true,
+      message: "Medicamento deletado com sucesso",
+    };
+  }
 }

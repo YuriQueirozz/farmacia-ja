@@ -41,7 +41,7 @@ export class MedicamentosData {
     return { data: data as Medicamento, error: null };
   }
 
-  //GET por filtro
+  //GET por filtro (nome, categoria e principio ativo)
 
   async buscarMedicamentosPorFiltro(filtros: {
     nome?: string;
@@ -57,7 +57,7 @@ export class MedicamentosData {
       return { data: null, error };
     }
 
-    // Aplica filtros localmente
+    // Aplica filtros localmente (permite deixar a pesquisa como se fosse o ilike dos bancos de dados)
     const filtrados = data.filter((m) => {
       let ok = true;
 
@@ -85,5 +85,15 @@ export class MedicamentosData {
     });
 
     return { data: filtrados, error: null };
+  }
+
+  // DELETE medicamentos por id
+
+  async deletarMedicamento(id: number) {
+    console.log("Data: deletando medicamento ID:", id);
+
+    const { error } = await supabase.from("medicamentos").delete().eq("id", id);
+
+    return { error };
   }
 }
