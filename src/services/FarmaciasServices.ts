@@ -111,4 +111,39 @@ export class FarmaciasServices {
       };
     }
   }
+
+  // buscar farmacia por id
+  async buscarFarmaciaPorId(id: number): Promise<ApiResponse<Farmacia>> {
+    try {
+      const { data, error } = await farmaciasData.buscarFarmaciaPorId(id);
+
+      if (error) {
+        return {
+          success: false,
+          message: "Erro ao buscar farmácia",
+          error: error,
+        };
+      }
+
+      // se não encontrou
+      if (!data) {
+        return {
+          success: false,
+          message: "Farmácia não encontrada",
+        };
+      }
+
+      return {
+        success: true,
+        message: "Farmácia encontrada!",
+        data: data,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: "Erro ao buscar farmácia",
+        error: error.message,
+      };
+    }
+  }
 }
