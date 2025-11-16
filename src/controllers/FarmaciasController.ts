@@ -82,4 +82,32 @@ export class FarmaciasController {
             });
         }
     };
+
+    // buscar farmacia por id
+    public buscarFarmaciaPorId = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Você precisa informar o ID da farmácia!",
+                });
+            }
+
+            const response = await farmaciasServices.buscarFarmaciaPorId(Number(id));
+
+            if (!response.success) {
+                return res.status(404).json(response);
+            }
+
+            return res.status(200).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao buscar farmácia",
+                error: error.message,
+            });
+        }
+    };
 }
