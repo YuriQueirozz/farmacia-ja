@@ -9,8 +9,12 @@ router.get("/", (req, res) =>
   medicamentosController.listarMedicamentos(req, res)
 );
 
-//GET Medicamentos por ID
+//GET Medicamentos por filtros (nome, categoria e tudo mais)
+router.get("/buscar", (req, res) =>
+  medicamentosController.buscarPorFiltros(req, res)
+);
 
+//GET Medicamentos por ID
 router.get("/:id", (req, res) =>
   medicamentosController.buscarMedicamentoPorId(req, res)
 );

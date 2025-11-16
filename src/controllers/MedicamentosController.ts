@@ -73,4 +73,17 @@ export class MedicamentosController {
       });
     }
   };
+
+  public buscarPorFiltros = async (req: Request, res: Response) => {
+    try {
+      const response = await medicamentosServices.buscarPorFiltros(req.query);
+      return res.status(200).json(response);
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: "Erro ao filtrar medicamentos",
+        error: error.message,
+      });
+    }
+  };
 }

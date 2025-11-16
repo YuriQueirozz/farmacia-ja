@@ -79,4 +79,28 @@ export class MedicamentosServices {
       data: data as Medicamento,
     };
   }
+
+  async buscarPorFiltros(query: any) {
+    const { nome, categoria, principio_ativo } = query;
+
+    const { data, error } = await medicamentosData.buscarMedicamentosPorFiltro({
+      nome,
+      categoria,
+      principio_ativo,
+    });
+
+    if (error) {
+      return {
+        success: false,
+        message: "Erro ao buscar medicamentos com filtros",
+        error: error.message,
+      };
+    }
+
+    return {
+      success: true,
+      message: "Medicamentos filtrados encontrados",
+      data,
+    };
+  }
 }
