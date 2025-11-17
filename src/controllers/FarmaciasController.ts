@@ -110,4 +110,42 @@ export class FarmaciasController {
             });
         }
     };
+
+    // atualizar farmacia
+    public atualizarFarmacia = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            const { nome, telefone, entregas, cnpj, endereco_id, ativo } = req.body;
+
+            if (!id) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Você precisa informar o ID da farmácia!",
+                });
+            }
+
+            // monta o objeto só com o que foi enviado
+            const updateData: any = {};
+            if (nome) updateData.nome = nome;
+            if (telefone !== undefined) updateData.telefone = telefone;
+            if (entregas !== undefined) updateData.entregas = entregas;
+            if (cnpj) updateData.cnpj = cnpj;
+            if (endereco_id !== undefined) updateData.endereco_id = endereco_id;
+            if (ativo !== undefined) updateData.ativo = ativo;
+
+            const response = await farmaciasServices.atualizarFarmacia(Number(id), updateData);
+
+            if (!response.success) {
+                return res.status(404).json(response);
+            }
+
+            return res.status(200).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao atualizar farmácia",
+                error: error.message,
+            });
+        }
+    };
 }
