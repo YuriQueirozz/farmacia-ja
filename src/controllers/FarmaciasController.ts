@@ -26,7 +26,7 @@ export class FarmaciasController {
             if (!nome || typeof endereco_id === "undefined" || typeof entregas === "undefined" || !cnpj) {
                 return res.status(400).json({
                     success: false,
-                    message: "Campos obrigatórios ausentes: nome, endereco_id, entregas, cnpj",
+                    message: "Campos obrigatórios ausente: nome, endereco_id, entregas, CNPJ",
                 });
             }
 
@@ -49,7 +49,7 @@ export class FarmaciasController {
         } catch (error: any) {
             return res.status(500).json({
                 success: false,
-                message: "Erro ao criar farmácia.",
+                message: "Erro ao criar farmácia",
                 error: error.message,
             });
         }
@@ -120,7 +120,7 @@ export class FarmaciasController {
             if (!id) {
                 return res.status(400).json({
                     success: false,
-                    message: "Você precisa informar o ID da farmácia!",
+                    message: "Você precisa informar o id da farmácia",
                 });
             }
 
@@ -143,7 +143,7 @@ export class FarmaciasController {
         } catch (error: any) {
             return res.status(500).json({
                 success: false,
-                message: "Erro ao atualizar farmácia",
+                message: "Erro ao atualizar farmacia",
                 error: error.message,
             });
         }
