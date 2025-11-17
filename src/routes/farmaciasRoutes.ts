@@ -16,4 +16,7 @@ router.get("/:id", farmaciasController.buscarFarmaciaPorId);
 // POST /farmacias
 router.post("/", farmaciasController.criarFarmacia);
 
+// PUT /farmacias/:id
+router.put("/:id", farmaciasController.atualizarFarmacia);
+
 export default router;
