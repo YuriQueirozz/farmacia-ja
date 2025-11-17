@@ -99,4 +99,34 @@ export class FarmaciasData {
       return { data: null, error: err };
     }
   }
+
+  // atualizar farmacia
+  async atualizarFarmacia(id: number, payload: Partial<Farmacia>) {
+    try {
+      // monta só com os campos que vieram
+      const updatePayload: any = {};
+      
+      if (payload.nome) updatePayload.nome = payload.nome;
+      if (payload.telefone !== undefined) updatePayload.telefone = payload.telefone;
+      if (payload.entregas !== undefined) updatePayload.entregas = payload.entregas;
+      if (payload.cnpj) updatePayload.cnpj = payload.cnpj;
+      if (payload.endereco_id !== undefined) updatePayload.endereco_id = payload.endereco_id;
+      if (payload.ativo !== undefined) updatePayload.ativo = payload.ativo;
+
+      const { data, error } = await supabase
+        .from("farmacias")
+        .update(updatePayload)
+        .eq("id", id)
+        .select("*")
+        .single();
+
+      if (error) {
+        return { data: null, error };
+      }
+
+      return { data, error: null };
+    } catch (err) {
+      return { data: null, error: err };
+    }
+  }
 }

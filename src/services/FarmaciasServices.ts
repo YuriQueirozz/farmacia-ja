@@ -146,4 +146,39 @@ export class FarmaciasServices {
       };
     }
   }
+
+  // atualizar farmacia
+  async atualizarFarmacia(id: number, payload: Partial<Farmacia>): Promise<ApiResponse<Farmacia>> {
+    try {
+      const { data, error } = await farmaciasData.atualizarFarmacia(id, payload);
+
+      if (error) {
+        return {
+          success: false,
+          message: "Erro ao atualizar farmácia",
+          error: error,
+        };
+      }
+
+      // se não encontrou para atualizar
+      if (!data) {
+        return {
+          success: false,
+          message: "Farmácia não encontrada",
+        };
+      }
+
+      return {
+        success: true,
+        message: "Farmácia atualizada com sucesso!",
+        data: data,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: "Erro ao atualizar farmácia",
+        error: error.message,
+      };
+    }
+  }
 }
