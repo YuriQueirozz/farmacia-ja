@@ -80,6 +80,8 @@ export class MedicamentosServices {
     };
   }
 
+  // Buscar medicamento por filtro
+
   async buscarPorFiltros(query: any) {
     const { nome, categoria, principio_ativo } = query;
 
