@@ -110,4 +110,54 @@ export class MedicamentosController {
       });
     }
   };
+
+  // Atualizar medicamentos
+
+  public atualizarMedicamento = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      const response = await medicamentosServices.atualizarMedicamento(
+        Number(id),
+        req.body
+      );
+
+      if (!response.success) {
+        return res.status(400).json(response);
+      }
+
+      return res.status(200).json(response);
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: "Erro ao atualizar medicamento",
+        error: error.message,
+      });
+    }
+  };
+
+  // Patch medicamentos
+
+  public atualizarParcial = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      const response = await medicamentosServices.atualizarParcial(
+        Number(id),
+        req.body
+      );
+
+      if (!response.success) {
+        return res.status(400).json(response);
+      }
+
+      return res.status(200).json(response);
+    } catch (error: any) {
+      return res.status(500).json({
+        success: false,
+        message: "Erro ao atualizar parcialmente o medicamento",
+        error: error.message,
+      });
+    }
+  };
 }
