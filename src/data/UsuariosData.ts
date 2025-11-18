@@ -25,7 +25,7 @@ export class UsuariosData {
         }
 
         if (filtros.email) {
-            query = query.ilike("email!", `%${filtros.email}%`);
+            query = query.ilike("email", `%${filtros.email}%`);
         }
 
         const { data, error } = await query;
@@ -120,5 +120,17 @@ export class UsuariosData {
         }
 
         return { data: data as Usuario, error: null };
+    }
+
+    async deletarUsuario(id: string) {
+        console.log(`Data: Removendo usuári ${id}`);
+        const{ data, error} = await supabase
+            .from("usuarios")
+            .delete()
+            .eq("id", id)
+            .select("*")
+            .single();
+
+        return { data, error };
     }
 }

@@ -178,4 +178,28 @@ export class UsuariosServices {
             data: data as Usuario,
         };
     }
+
+    async removerUsuario(id:string): Promise<ApiResponse<null>> {
+        console.log(`Service: removendo usuário ${id}...`);
+        if(!id) {
+            return { success: false, message: "ID não fornecido", error: "VALIDATION_ERROR" };
+        }
+
+        // Verificar existência
+        const existente = await usuariosData.buscarUsuarioPorId(id);
+        if (existente.error) {
+            return { success: false, message: "Erro ao buscar usuário existente", error: existente.error };
+        }
+        if (!existente.data) {
+            return { success: false, message: "Usuário não encontrado", error: "NOT_FOUND" };
+        }
+
+        const { data, error } = await usuariosData.deletarUsuario(id);
+
+        if(error) {
+            return { success: false, message: "Erro ao deletar usuário", error: error.message ?? error };
+        }
+
+        return { success: true, message: "Usuário removido com sucesso" };
+    }
 }

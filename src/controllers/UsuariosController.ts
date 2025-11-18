@@ -69,4 +69,23 @@ export class UsuariosController {
             });
         }
     }
+
+    public removerUsuario = async (req: Request, res: Response) => {
+        console.log("Controller: recebida requisição DELETE /usuarios/:id");
+        try {
+            const { id } = req.params;
+            const response = await usuariosServices.removerUsuario(id);
+            if(!response.success) {
+                const status = response.error === "NOT_FOUND" ? 404 : 400;
+                return res.status(status).json(response);
+            }
+            return res.status(200).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao remover usuário.",
+                error: error.message,
+            });
+        }
+    }
 }

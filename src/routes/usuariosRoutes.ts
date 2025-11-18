@@ -20,4 +20,7 @@ router.get("/:id", (req, res) => usuariosController.buscarUsuarioPorId(req, res)
 // POST
 router.post("/", (req, res) => usuariosController.criarUsuario(req, res));
 
+// DELETE
+router.delete("/:id", (req, res) => usuariosController.removerUsuario(req, res));
+
 export default router;
