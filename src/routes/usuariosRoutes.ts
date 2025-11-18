@@ -20,4 +20,8 @@ router.get("/:id", (req, res) => usuariosController.buscarUsuarioPorId(req, res)
 // POST
 router.post("/", (req, res) => usuariosController.criarUsuario(req, res));
 
+router.put("/:id", (req, res) => usuariosController.atualizarUsuario(req, res));
+
+router.patch("/:id", (req, res) => usuariosController.atualizarParcialUsuario(req, res));
+
 export default router;
