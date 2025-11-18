@@ -203,4 +203,76 @@ export class MedicamentosServices {
       data: data as Medicamento,
     };
   }
+
+  // PATCH medicamentos
+
+  async atualizarParcial(
+    id: number,
+    body: any
+  ): Promise<ApiResponse<Medicamento>> {
+    if (!id) {
+      return {
+        success: false,
+        message: "ID é obrigatório",
+        error: "INVALID_ID",
+      };
+    }
+
+    // Verifica se o medicamento existe
+    const existente = await supabase
+      .from("medicamentos")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (existente.error) {
+      return {
+        success: false,
+        message: "Medicamento não encontrado",
+        error: existente.error.message,
+      };
+    }
+
+    // Somente campos válidos
+    const camposPermitidos = [
+      "nome",
+      "principio_ativo",
+      "dosagem",
+      "categoria",
+    ];
+    const payload: any = {};
+
+    for (const campo of camposPermitidos) {
+      if (body[campo] !== undefined) {
+        payload[campo] = String(body[campo]).trim();
+      }
+    }
+
+    if (Object.keys(payload).length === 0) {
+      return {
+        success: false,
+        message: "Nenhum campo válido foi enviado para atualização",
+        error: "EMPTY_UPDATE",
+      };
+    }
+
+    const { data, error } = await medicamentosData.atualizarParcial(
+      id,
+      payload
+    );
+
+    if (error) {
+      return {
+        success: false,
+        message: "Erro ao atualizar medicamento",
+        error: error.message,
+      };
+    }
+
+    return {
+      success: true,
+      message: "Medicamento atualizado com sucesso",
+      data: data as Medicamento,
+    };
+  }
 }

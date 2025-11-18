@@ -97,7 +97,7 @@ export class MedicamentosData {
     return { error };
   }
 
-  // Atualizar medicamento por id
+  // Atualizar medicamento por id (atualiza todo o body)
 
   async atualizarMedicamento(id: number, medicamento: Partial<Medicamento>) {
     console.log("Data: atualizando medicamento ID:", id);
@@ -105,6 +105,20 @@ export class MedicamentosData {
     const { data, error } = await supabase
       .from("medicamentos")
       .update(medicamento)
+      .eq("id", id)
+      .select("*")
+      .single();
+
+    return { data, error };
+  }
+
+  // PATCH medicamentos (atualiza parcialmente o medicamento)
+  async atualizarParcial(id: number, campos: Partial<Medicamento>) {
+    console.log("Data: atualização parcial do medicamento ID:", id);
+
+    const { data, error } = await supabase
+      .from("medicamentos")
+      .update(campos)
       .eq("id", id)
       .select("*")
       .single();

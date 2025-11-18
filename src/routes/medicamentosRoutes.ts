@@ -34,4 +34,9 @@ router.put("/:id", (req, res) =>
   medicamentosController.atualizarMedicamento(req, res)
 );
 
+// PATCH medicamento (atualização parcial)
+router.patch("/:id", (req, res) =>
+  medicamentosController.atualizarParcial(req, res)
+);
+
 export default router;
