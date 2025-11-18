@@ -96,4 +96,19 @@ export class MedicamentosData {
 
     return { error };
   }
+
+  // Atualizar medicamento por id
+
+  async atualizarMedicamento(id: number, medicamento: Partial<Medicamento>) {
+    console.log("Data: atualizando medicamento ID:", id);
+
+    const { data, error } = await supabase
+      .from("medicamentos")
+      .update(medicamento)
+      .eq("id", id)
+      .select("*")
+      .single();
+
+    return { data, error };
+  }
 }

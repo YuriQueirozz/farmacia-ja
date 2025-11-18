@@ -145,4 +145,62 @@ export class MedicamentosServices {
       message: "Medicamento deletado com sucesso",
     };
   }
+
+  //Atualizar medicamentos
+  async atualizarMedicamento(
+    id: number,
+    body: any
+  ): Promise<ApiResponse<Medicamento>> {
+    if (!id) {
+      return {
+        success: false,
+        message: "ID é obrigatório",
+        error: "INVALID_ID",
+      };
+    }
+
+    // Verifica se existe
+    const existente = await supabase
+      .from("medicamentos")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (existente.error) {
+      return {
+        success: false,
+        message: "Medicamento não encontrado",
+        error: existente.error.message,
+      };
+    }
+
+    // Apenas campos permitidos
+    const { nome, principio_ativo, dosagem, categoria } = body;
+
+    const payload: any = {};
+
+    if (nome) payload.nome = nome.trim();
+    if (principio_ativo) payload.principio_ativo = principio_ativo.trim();
+    if (dosagem) payload.dosagem = dosagem.trim();
+    if (categoria) payload.categoria = categoria.trim();
+
+    const { data, error } = await medicamentosData.atualizarMedicamento(
+      id,
+      payload
+    );
+
+    if (error) {
+      return {
+        success: false,
+        message: "Erro ao atualizar medicamento",
+        error: error.message,
+      };
+    }
+
+    return {
+      success: true,
+      message: "Medicamento atualizado com sucesso",
+      data: data as Medicamento,
+    };
+  }
 }

@@ -29,4 +29,9 @@ router.delete("/:id", (req, res) =>
   medicamentosController.deletarMedicamento(req, res)
 );
 
+// PUT medicamento
+router.put("/:id", (req, res) =>
+  medicamentosController.atualizarMedicamento(req, res)
+);
+
 export default router;
