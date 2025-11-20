@@ -4,6 +4,7 @@ import { FarmaciasServices } from "../services/FarmaciasServices";
 const farmaciasServices = new FarmaciasServices();
 
 export class FarmaciasController {
+    // GET /farmacias lista todas as farmácias
     public listarFarmacias = async (req: Request, res: Response) => {
         console.log("Controller: recebida requisição GET /farmacias");
         try {
@@ -19,10 +20,13 @@ export class FarmaciasController {
         }
     };
 
+    // POST /farmacias - cria uma nova farmácia
     public criarFarmacia = async (req: Request, res: Response) => {
         try {
+            // pega os dados que vieram no body da requisição
             const { nome, endereco_id, entregas, cnpj, telefone, ativo } = req.body;
 
+            // valida se os campos obrigatórios foram enviados
             if (!nome || typeof endereco_id === "undefined" || typeof entregas === "undefined" || !cnpj) {
                 return res.status(400).json({
                     success: false,
@@ -55,9 +59,10 @@ export class FarmaciasController {
         }
     };
 
-    
+    // GET /farmacias/bairro/:bairro 
     public buscarFarmaciasPorBairro = async (req: Request, res: Response) => {
         try {
+            // pega o bairro da URL (parâmetro)
             const { bairro } = req.params;
 
             if (!bairro) {
@@ -83,9 +88,10 @@ export class FarmaciasController {
         }
     };
 
-    // buscar farmacia por id
+    // GET /farmacias/:id para buscar uma farmácia pelo id
     public buscarFarmaciaPorId = async (req: Request, res: Response) => {
         try {
+            // pega o id da URL
             const { id } = req.params;
 
             if (!id) {
@@ -95,6 +101,7 @@ export class FarmaciasController {
                 });
             }
 
+            // converte o id pra número e busca no service
             const response = await farmaciasServices.buscarFarmaciaPorId(Number(id));
 
             if (!response.success) {
@@ -111,9 +118,10 @@ export class FarmaciasController {
         }
     };
 
-    // atualizar farmacia
+    // PUT /farmacias/:id para atualizar uma farmácia
     public atualizarFarmacia = async (req: Request, res: Response) => {
         try {
+            // pega o id da URL e os dados do body
             const { id } = req.params;
             const { nome, telefone, entregas, cnpj, endereco_id, ativo } = req.body;
 
@@ -124,9 +132,10 @@ export class FarmaciasController {
                 });
             }
 
-            // monta o objeto só com o que foi enviado
+            // monta o objeto só com os campos que foram enviados (atualização em partes)
             const updateData: any = {};
             if (nome) updateData.nome = nome;
+            // usa !== undefined para aceitar valores vazios tipo "" ou false
             if (telefone !== undefined) updateData.telefone = telefone;
             if (entregas !== undefined) updateData.entregas = entregas;
             if (cnpj) updateData.cnpj = cnpj;

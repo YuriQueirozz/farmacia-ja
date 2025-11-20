@@ -22,5 +22,8 @@ router.post("/", (req, res) => usuariosController.criarUsuario(req, res));
 
 // DELETE
 router.delete("/:id", (req, res) => usuariosController.removerUsuario(req, res));
+router.put("/:id", (req, res) => usuariosController.atualizarUsuario(req, res));
+
+router.patch("/:id", (req, res) => usuariosController.atualizarParcialUsuario(req, res));
 
 export default router;

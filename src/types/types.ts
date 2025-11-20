@@ -1,4 +1,5 @@
 export type Usuario = {
+    email: string | undefined;
     id: string;
     nome: string;
     cpf: string;

@@ -5,8 +5,8 @@ const usuariosData = new UsuariosData();
 
 // normalizando valores para string ou nulo
 function normalizeToStringOrNull(value: any): string | null {
-    if(value == null) return null;
-    if(typeof value === "string") {
+    if (value == null) return null;
+    if (typeof value === "string") {
         const st = value.trim();
         return st.length ? st : null;
     }
@@ -17,11 +17,11 @@ function normalizeToStringOrNull(value: any): string | null {
 }
 
 function normalizeDateToISOStringOrNull(value: any): string | null {
-    if(value == null) return null;
+    if (value == null) return null;
 
     // se já tem um Date, usa ele, senão tenta criar um
     const date = value instanceof Date ? value : new Date(String(value));
-    if(isNaN(date.getTime())) return null;
+    if (isNaN(date.getTime())) return null;
     return date.toISOString();
 }
 
@@ -55,9 +55,9 @@ export class UsuariosServices {
             email: queryParams.email,
         };
 
-        const{ data, error } = await usuariosData.filtrarUsuarios(filtros);
+        const { data, error } = await usuariosData.filtrarUsuarios(filtros);
 
-        if(error) {
+        if (error) {
             return {
                 success: false,
                 message: "Erro ao filtrar usuários",
@@ -75,7 +75,7 @@ export class UsuariosServices {
     async buscarUsuarioPorId(id: string): Promise<ApiResponse<Usuario>> {
         console.log(`Service: buscando usuário com ID ${id}...`);
 
-        if(!id) {
+        if (!id) {
             return {
                 success: false,
                 message: "ID não fornecido",
@@ -85,7 +85,7 @@ export class UsuariosServices {
 
         const { data, error } = await usuariosData.buscarUsuarioPorId(id);
 
-        if(error) {
+        if (error) {
             return {
                 success: false,
                 message: "Erro ao buscar usuário",
@@ -93,7 +93,7 @@ export class UsuariosServices {
             };
         }
 
-        if(!data) {
+        if (!data) {
             return {
                 success: false,
                 message: "Usuário não encontrado",
@@ -111,10 +111,11 @@ export class UsuariosServices {
     async criarUsuario(body: any): Promise<ApiResponse<Usuario>> {
         console.log("Service: criando novo usuário...");
 
-        const { email, senha, nome, cpf, tipo, endereco, data_nascimento } = body;
+        const { email, senha, nome, cpf, tipo, endereco, data_nascimento } =
+            body;
 
         // Validar campos obrigatórios
-        if(!email || ! senha || !nome || !cpf || !tipo) {
+        if (!email || !senha || !nome || !cpf || !tipo) {
             return {
                 success: false,
                 message: "Email, senha, nome, CPF e tipo são obrigatórios",
@@ -122,9 +123,10 @@ export class UsuariosServices {
             };
         }
 
-        // Normalizar e validar a data de nascimento 
+        // Normalizar e validar a data de nascimento
         // formato ISO ou nulo
-        const dataNascimentoNormalizado = normalizeDateToISOStringOrNull(data_nascimento);
+        const dataNascimentoNormalizado =
+            normalizeDateToISOStringOrNull(data_nascimento);
         if (data_nascimento != null && dataNascimentoNormalizado === null) {
             return {
                 success: false,
@@ -145,24 +147,23 @@ export class UsuariosServices {
 
         const { data, error } = await usuariosData.criarUsuario(payload);
 
-        if(error) {
-
+        if (error) {
             // VERIFICANDO ERRO DE CPF DUPLICADO NO SUPABASE
-            if(error.code === "23505" || error.message?.includes("cpf")) {
+            if (error.code === "23505" || error.message?.includes("cpf")) {
                 return {
                     success: false,
                     message: "CPF já cadastrado",
                     error: "DUPLICATE_CPF",
-                }
+                };
             }
 
             // EMAIL DUPLICADO NO SUPABASE AUTH
-            if(error.code === "DUPLICATE_EMAIL") {
+            if (error.code === "DUPLICATE_EMAIL") {
                 return {
                     success: false,
                     message: "Email já cadastrado",
                     error: "DUPLICATE_EMAIL",
-                }
+                };
             }
 
             return {
@@ -201,5 +202,196 @@ export class UsuariosServices {
         }
 
         return { success: true, message: "Usuário removido com sucesso" };
+    }
+
+    async atualizarUsuario(
+        id: string,
+        body: any
+    ): Promise<ApiResponse<Usuario>> {
+        console.log(`Service: atualizando (PUT) usuário ${id}`);
+
+        if (!id) {
+            return {
+                success: false,
+                message: "ID não fornecido",
+                error: "VALIDATION_ERROR",
+            };
+        }
+
+        const payload = {
+            email: body.email
+                ? String(body.email).toLowerCase().trim()
+                : undefined,
+            nome: body.nome ? String(body.nome).trim() : undefined,
+            cpf: body.cpf ? String(body.cpf).trim() : undefined,
+            tipo: body.tipo ? String(body.tipo).trim() : undefined,
+            endereco: normalizeToStringOrNull(body.endereco),
+            data_nascimento: normalizeToStringOrNull(body.data_nascimento),
+        };
+
+        if (!payload.email || !payload.nome || !payload.cpf || !payload.tipo) {
+            return {
+                success: false,
+                message:
+                    "Email, nome, CPF e tipo são obrigatórios para atualização completa",
+                error: "VALIDATION_ERROR",
+            };
+        }
+        //verificar se usuário existe
+        const existente = await usuariosData.buscarUsuarioPorId(id);
+        if (existente.error) {
+            return {
+                success: false,
+                message: "Erro ao buscar usuário",
+                error: existente.error,
+            };
+        }
+
+        if (!existente.data) {
+            return {
+                success: false,
+                message: "Usuário não encontrado",
+                error: "NOT_FOUND",
+            };
+        }
+
+        const { data: todos, error: errTodos } =
+            await usuariosData.buscarUsuarios();
+        if (errTodos) {
+            return {
+                success: false,
+                message: "Erro ao validar conflitos",
+                error: errTodos,
+            };
+        }
+        const conflitos = (todos as Usuario[]).find(
+            (u) =>
+                u.id !== id &&
+                (u.cpf === payload.cpf || u.email === payload.email)
+        );
+        if (conflitos) {
+            return {
+                success: false,
+                message: "CPF ou email já cadastrado por outro usuário",
+                error: "DUPLICATE_EMAIL",
+            };
+        }
+
+        const { data, error } = await usuariosData.atualizarUsuario(
+            id,
+            payload as any
+        );
+
+        if (error) {
+            return {
+                success: false,
+                message: "Erro ao atualizar usuário",
+                error: error.message ?? error,
+            };
+        }
+
+        return {
+            success: true,
+            message: "Usuário atualizado com sucesso",
+            data: data as Usuario,
+        };
+    }
+
+    async atualizarParcialUsuario(
+        id: string,
+        body: any
+    ): Promise<ApiResponse<Usuario>> {
+        console.log(
+            `Service: atualizando parcialmente (PATCH) usuário ${id}...`
+        );
+        if (!id) {
+            return {
+                success: false,
+                message: "ID não fornecido",
+                error: "VALIDATION_ERROR",
+            };
+        }
+
+        // Normalizar
+        const payload: any = {};
+        if (body.email) payload.email = String(body.email).toLowerCase().trim();
+        if (body.nome) payload.nome = String(body.nome).trim();
+        if (body.cpf) payload.cpf = String(body.cpf).trim();
+        if (body.tipo) payload.tipo = String(body.tipo).trim();
+        if (body.endereco !== undefined)
+            payload.endereco = normalizeToStringOrNull(body.endereco);
+        if (body.data_nascimento !== undefined) {
+            const dn = normalizeDateToISOStringOrNull(body.data_nascimento);
+            if (body.data_nascimento != null && dn === null) {
+                return {
+                    success: false,
+                    message: "Data de nascimento inválida",
+                    error: "VALIDATION_ERROR",
+                };
+            }
+            payload.data_nascimento = dn;
+        }
+
+        // Verificar se usuário existe
+        const existente = await usuariosData.buscarUsuarioPorId(id);
+        if (existente.error) {
+            return {
+                success: false,
+                message: "Erro ao buscar usuário existente",
+                error: existente.error,
+            };
+        }
+        if (!existente.data) {
+            return {
+                success: false,
+                message: "Usuário não encontrado",
+                error: "NOT_FOUND",
+            };
+        }
+
+        //checar duplicidade
+        if (payload.email || payload.cpf) {
+            const { data: todos, error: errTodos } =
+                await usuariosData.buscarUsuarios();
+            if (errTodos) {
+                return {
+                    success: false,
+                    message: "Erro ao validar conflitos",
+                    error: errTodos,
+                };
+            }
+            const conflitos = (todos as Usuario[]).find(
+                (u) =>
+                    u.id !== id &&
+                    ((payload.cpf && u.cpf === payload.cpf) ||
+                        (payload.email && u.email === payload.email))
+            );
+            if (conflitos) {
+                return {
+                    success: false,
+                    message: "CPF ou email já cadastrado por outro usuário",
+                    error: "DUPLICATE",
+                };
+            }
+        }
+
+        const { data, error } = await usuariosData.atualizarParcialUsuario(
+            id,
+            payload
+        );
+
+        if (error) {
+            return {
+                success: false,
+                message: "Erro ao atualizar parcialmente usuário",
+                error: error.message ?? error,
+            };
+        }
+
+        return {
+            success: true,
+            message: "Usuário atualizado parcialmente com sucesso",
+            data: data as Usuario,
+        };
     }
 }
