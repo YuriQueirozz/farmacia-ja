@@ -1,7 +1,7 @@
 import { ApiResponse, Usuario } from "../types/types";
 import { UsuariosData } from "../data/UsuariosData";
 
-const usuariosData = new UsuariosData();
+// const usuariosData = new UsuariosData();
 
 // normalizando valores para string ou nulo
 function normalizeToStringOrNull(value: any): string | null {
@@ -26,10 +26,16 @@ function normalizeDateToISOStringOrNull(value: any): string | null {
 }
 
 export class UsuariosServices {
+    private usuariosData: UsuariosData;
+
+    constructor(usuariosData?: UsuariosData) {
+        this.usuariosData = usuariosData ?? new UsuariosData();
+    }
+
     async listarUsuarios(): Promise<ApiResponse<Usuario[]>> {
         console.log("Service: buscando usuários...");
 
-        const { data, error } = await usuariosData.buscarUsuarios();
+        const { data, error } = await this.usuariosData.buscarUsuarios();
 
         if (error) {
             return {
@@ -55,7 +61,7 @@ export class UsuariosServices {
             email: queryParams.email,
         };
 
-        const { data, error } = await usuariosData.filtrarUsuarios(filtros);
+        const { data, error } = await this.usuariosData.filtrarUsuarios(filtros);
 
         if (error) {
             return {
@@ -83,7 +89,7 @@ export class UsuariosServices {
             };
         }
 
-        const { data, error } = await usuariosData.buscarUsuarioPorId(id);
+        const { data, error } = await this.usuariosData.buscarUsuarioPorId(id);
 
         if (error) {
             return {
@@ -145,7 +151,7 @@ export class UsuariosServices {
             data_nascimento: dataNascimentoNormalizado,
         };
 
-        const { data, error } = await usuariosData.criarUsuario(payload);
+        const { data, error } = await this.usuariosData.criarUsuario(payload);
 
         if (error) {
             // VERIFICANDO ERRO DE CPF DUPLICADO NO SUPABASE
@@ -180,25 +186,41 @@ export class UsuariosServices {
         };
     }
 
-    async removerUsuario(id:string): Promise<ApiResponse<null>> {
+    async removerUsuario(id: string): Promise<ApiResponse<null>> {
         console.log(`Service: removendo usuário ${id}...`);
-        if(!id) {
-            return { success: false, message: "ID não fornecido", error: "VALIDATION_ERROR" };
+        if (!id) {
+            return {
+                success: false,
+                message: "ID não fornecido",
+                error: "VALIDATION_ERROR",
+            };
         }
 
         // Verificar existência
-        const existente = await usuariosData.buscarUsuarioPorId(id);
+        const existente = await this.usuariosData.buscarUsuarioPorId(id);
         if (existente.error) {
-            return { success: false, message: "Erro ao buscar usuário existente", error: existente.error };
+            return {
+                success: false,
+                message: "Erro ao buscar usuário existente",
+                error: existente.error,
+            };
         }
         if (!existente.data) {
-            return { success: false, message: "Usuário não encontrado", error: "NOT_FOUND" };
+            return {
+                success: false,
+                message: "Usuário não encontrado",
+                error: "NOT_FOUND",
+            };
         }
 
-        const { data, error } = await usuariosData.deletarUsuario(id);
+        const { data, error } = await this.usuariosData.deletarUsuario(id);
 
-        if(error) {
-            return { success: false, message: "Erro ao deletar usuário", error: error.message ?? error };
+        if (error) {
+            return {
+                success: false,
+                message: "Erro ao deletar usuário",
+                error: error.message ?? error,
+            };
         }
 
         return { success: true, message: "Usuário removido com sucesso" };
@@ -238,7 +260,7 @@ export class UsuariosServices {
             };
         }
         //verificar se usuário existe
-        const existente = await usuariosData.buscarUsuarioPorId(id);
+        const existente = await this.usuariosData.buscarUsuarioPorId(id);
         if (existente.error) {
             return {
                 success: false,
@@ -256,7 +278,7 @@ export class UsuariosServices {
         }
 
         const { data: todos, error: errTodos } =
-            await usuariosData.buscarUsuarios();
+            await this.usuariosData.buscarUsuarios();
         if (errTodos) {
             return {
                 success: false,
@@ -277,7 +299,7 @@ export class UsuariosServices {
             };
         }
 
-        const { data, error } = await usuariosData.atualizarUsuario(
+        const { data, error } = await this.usuariosData.atualizarUsuario(
             id,
             payload as any
         );
@@ -333,7 +355,7 @@ export class UsuariosServices {
         }
 
         // Verificar se usuário existe
-        const existente = await usuariosData.buscarUsuarioPorId(id);
+        const existente = await this.usuariosData.buscarUsuarioPorId(id);
         if (existente.error) {
             return {
                 success: false,
@@ -352,7 +374,7 @@ export class UsuariosServices {
         //checar duplicidade
         if (payload.email || payload.cpf) {
             const { data: todos, error: errTodos } =
-                await usuariosData.buscarUsuarios();
+                await this.usuariosData.buscarUsuarios();
             if (errTodos) {
                 return {
                     success: false,
@@ -375,7 +397,7 @@ export class UsuariosServices {
             }
         }
 
-        const { data, error } = await usuariosData.atualizarParcialUsuario(
+        const { data, error } = await this.usuariosData.atualizarParcialUsuario(
             id,
             payload
         );
