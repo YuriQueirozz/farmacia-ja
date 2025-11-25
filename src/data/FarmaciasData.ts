@@ -137,4 +137,23 @@ export class FarmaciasData {
       return { data: null, error: err };
     }
   }
+
+  // deletar uma farmácia por ID
+  async deletarFarmacia(id: number) {
+    try {
+      const { data, error } = await supabase
+        .from("farmacias")
+        .delete()
+        .eq("id", id)
+        .select("*");
+
+      if (error) {
+        return { data: null, error };
+      }
+
+      return { data, error: null };
+    } catch (err) {
+      return { data: null, error: err };
+    }
+  }
 }

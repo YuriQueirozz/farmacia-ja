@@ -157,4 +157,33 @@ export class FarmaciasController {
             });
         }
     };
+
+    // DELETE /farmacias/:id para deletar por Id
+    public deletarFarmacia = async (req: Request, res: Response) => {
+        try {
+            // pega o ID da URL
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Você precisa informar o ID da farmácia",
+                });
+            }
+
+            const response = await farmaciasServices.deletarFarmacia(Number(id));
+
+            if (!response.success) {
+                return res.status(404).json(response);
+            }
+
+            return res.status(200).json(response);
+        } catch (error: any) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao deletar farmácia",
+                error: error.message,
+            });
+        }
+    };
 }

@@ -187,4 +187,47 @@ export class FarmaciasServices {
       };
     }
   }
+
+  // deleta farmácia por Id
+  async deletarFarmacia(id: number): Promise<ApiResponse<Farmacia>> {
+    try {
+      // verifica se o Id foi adicionado
+      if (!id) {
+        return {
+          success: false,
+          message: "O Id é obrigatório para deletar uma farmácia",
+        };
+      }
+
+      const { data, error } = await farmaciasData.deletarFarmacia(id);
+
+      if (error) {
+        return {
+          success: false,
+          message: "Erro ao deletar farmácia",
+          error: error,
+        };
+      }
+
+      // se não encontrar farmácia para deletar
+      if (!data || (Array.isArray(data) && data.length === 0)) {
+        return {
+          success: false,
+          message: "Farmácia não encontrada",
+        };
+      }
+
+      return {
+        success: true,
+        message: "Farmácia deletada com sucesso!",
+        data: Array.isArray(data) ? data[0] : data,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: "Erro ao deletar farmácia",
+        error: error.message,
+      };
+    }
+  }
 }

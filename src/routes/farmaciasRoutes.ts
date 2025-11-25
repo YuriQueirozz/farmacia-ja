@@ -19,4 +19,7 @@ router.post("/", farmaciasController.criarFarmacia);
 // PUT /farmacias/:id
 router.put("/:id", farmaciasController.atualizarFarmacia);
 
+// DELETE /farmacias/:id
+router.delete("/:id", farmaciasController.deletarFarmacia);
+
 export default router;
