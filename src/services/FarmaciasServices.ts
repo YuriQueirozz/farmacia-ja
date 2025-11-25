@@ -33,6 +33,7 @@ export class FarmaciasServices {
         success: true,
         message: "Farmácias encontradas com sucesso.",
         data: data,
+        documentosNecessarios: "Para retirar medicamentos gratuitamente pelo programa Farmácia Popular, são necessários os seguintes documentos: Identidade (CPF e RG) e Receita médica."
       };
     } catch (error: any) {
       console.error("Service: erro inesperado:", error);
@@ -105,6 +106,7 @@ export class FarmaciasServices {
         success: true,
         message: "Farmácias encontradas!",
         data: data,
+        documentosNecessarios: "Para retirar medicamentos gratuitamente pelo programa Farmácia Popular, são necessários os seguintes documentos: Identidade (CPF e RG) e Receita médica."
       };
     } catch (error: any) {
       return {
@@ -140,6 +142,7 @@ export class FarmaciasServices {
         success: true,
         message: "Farmácia encontrada!",
         data: data,
+        documentosNecessarios: "Para retirar medicamentos gratuitamente pelo programa Farmácia Popular, são necessários os seguintes documentos: Identidade (CPF e RG) e Receita médica."
       };
     } catch (error: any) {
       return {
