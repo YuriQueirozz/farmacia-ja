@@ -50,4 +50,5 @@ export type ApiResponse<T> = {
     message: string;
     data?: T;
     error?: any;
+    documentosNecessarios?: string;
 };
