@@ -5,7 +5,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copia os arquivos de dependências
-COPY package*.json./
+COPY package*.json ./
 
 # Instala TODAS as dependências (incluindo as de desenvolvimento, como Typescript)
 RUN npm install
@@ -23,7 +23,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copia apenas os arquivos de configuração de pacotes
-COPY package*.json./
+COPY package*.json ./
 
 # Instala APENAS as dependências necessárias para a produção (ignora pacotes de dev)
 RUN npm install --omit=dev
