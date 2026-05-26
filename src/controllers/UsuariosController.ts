@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { UsuariosServices } from "../services/UsuariosServices";
+import { UsuariosData } from "../data/UsuariosData";
 
-const usuariosServices = new UsuariosServices();
+const usuariosData = new UsuariosData();
+const usuariosServices = new UsuariosServices(usuariosData);
 
 export class UsuariosController {
     public listarUsuarios = async (req: Request, res: Response) => {
