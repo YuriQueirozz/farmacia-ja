@@ -1,14 +1,25 @@
 import { ApiResponse, Farmacia } from "../types/types";
-import { FarmaciasData } from "../data/FarmaciasData";
-
-const farmaciasData = new FarmaciasData();
+export interface IFarmaciasRepository {
+  listarFarmacias(): Promise<{ data?: any | null; error?: any | null }>;
+  criarFarmacia(payload: Partial<Farmacia>): Promise<{ data?: any | null; error?: any | null }>;
+  buscarFarmaciasPorBairro(bairro: string): Promise<{ data?: any | null; error?: any | null }>;
+  buscarFarmaciaPorId(id: number): Promise<{ data?: any | null; error?: any | null }>;
+  atualizarFarmacia(id: number, payload: Partial<Farmacia>): Promise<{ data?: any | null; error?: any | null }>;
+  deletarFarmacia(id: number): Promise<{ data?: any | null; error?: any | null }>;
+}
 
 export class FarmaciasServices {
+
+    private farmaciasData: IFarmaciasRepository;
+
+    constructor(farmaciasData: IFarmaciasRepository) {
+    this.farmaciasData = farmaciasData;
+  }
   // lista todas as farmácias
   public async listarFarmacias(): Promise<ApiResponse<Farmacia[]>> {
 
     try {
-      const { data, error } = await farmaciasData.listarFarmacias();
+      const { data, error } = await this.farmaciasData.listarFarmacias();
 
       // se deu erro no banco, retorna a mensagem de erro
       if (error) {
@@ -49,7 +60,7 @@ export class FarmaciasServices {
   public async criarFarmacia(payload: Partial<Farmacia>): Promise<ApiResponse<Farmacia>> {
     try {
       // chama a camada de dados pra inserir no banco
-      const { data, error } = await farmaciasData.criarFarmacia(payload);
+      const { data, error } = await this.farmaciasData.criarFarmacia(payload);
 
       if (error) {
         return {
@@ -83,7 +94,7 @@ export class FarmaciasServices {
   // busca farmácias de um bairro específico
   async buscarFarmaciasPorBairro(bairro: string): Promise<ApiResponse<Farmacia[]>> {
     try {
-      const { data, error } = await farmaciasData.buscarFarmaciasPorBairro(bairro);
+      const { data, error } = await this.farmaciasData.buscarFarmaciasPorBairro(bairro);
 
       if (error) {
         return {
@@ -120,7 +131,7 @@ export class FarmaciasServices {
   // busca uma farmácia pelo id dela
   async buscarFarmaciaPorId(id: number): Promise<ApiResponse<Farmacia>> {
     try {
-      const { data, error } = await farmaciasData.buscarFarmaciaPorId(id);
+      const { data, error } = await this.farmaciasData.buscarFarmaciaPorId(id);
 
       if (error) {
         return {
@@ -156,7 +167,7 @@ export class FarmaciasServices {
   // atualiza informações de uma farmácia
   async atualizarFarmacia(id: number, payload: Partial<Farmacia>): Promise<ApiResponse<Farmacia>> {
     try {
-      const { data, error } = await farmaciasData.atualizarFarmacia(id, payload);
+      const { data, error } = await this.farmaciasData.atualizarFarmacia(id, payload);
 
       if (error) {
         return {
@@ -199,7 +210,7 @@ export class FarmaciasServices {
         };
       }
 
-      const { data, error } = await farmaciasData.deletarFarmacia(id);
+      const { data, error } = await this.farmaciasData.deletarFarmacia(id);
 
       if (error) {
         return {

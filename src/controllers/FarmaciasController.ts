@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { FarmaciasServices } from "../services/FarmaciasServices";
+import { FarmaciasData } from "../data/FarmaciasData";
 
-const farmaciasServices = new FarmaciasServices();
+const farmaciasData = new FarmaciasData();
+const farmaciasServices = new FarmaciasServices(farmaciasData);
 
 export class FarmaciasController {
     // GET /farmacias lista todas as farmácias

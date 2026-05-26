@@ -1,20 +1,24 @@
-import { FarmaciasServices } from "../services/FarmaciasServices";
-import { FarmaciasData } from "../data/FarmaciasData";
-
-// mockando a camada de dados
-jest.mock("../data/FarmaciasData");
+import { FarmaciasServices, IFarmaciasRepository } from "../services/FarmaciasServices";
 
 describe("Farmácias - Testes de Integração", () => {
   // variavel para o service
   let farmaciasServices: FarmaciasServices;
+  let mockRepository: jest.Mocked<IFarmaciasRepository>;
 
   // roda antes de cada teste
   beforeEach(() => {
     // limpa os mocks
-    jest.clearAllMocks();
+    mockRepository = {
+      listarFarmacias: jest.fn(),
+      criarFarmacia: jest.fn(),
+      buscarFarmaciasPorBairro: jest.fn(),
+      buscarFarmaciaPorId: jest.fn(),
+      atualizarFarmacia: jest.fn(),
+      deletarFarmacia: jest.fn(),
+    };
     
     // nova instancia
-    farmaciasServices = new FarmaciasServices();
+    farmaciasServices = new FarmaciasServices(mockRepository);
   });
 
   /*
@@ -46,7 +50,7 @@ describe("Farmácias - Testes de Integração", () => {
       ];
 
       // mock retornando dados falsos
-      (FarmaciasData.prototype.listarFarmacias as jest.Mock) = jest.fn().mockResolvedValue({
+      mockRepository.listarFarmacias.mockResolvedValue({
         data: farmaciasMock,
         error: null,
       });
@@ -82,7 +86,7 @@ describe("Farmácias - Testes de Integração", () => {
       const idInexistente = 999;
 
       // mock retornando null (nao encontrou)
-      (FarmaciasData.prototype.buscarFarmaciaPorId as jest.Mock) = jest.fn().mockResolvedValue({
+      mockRepository.buscarFarmaciaPorId.mockResolvedValue({
         data: null,
         error: null,
       });
