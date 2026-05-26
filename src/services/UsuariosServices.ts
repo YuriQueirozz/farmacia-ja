@@ -1,7 +1,13 @@
 import { ApiResponse, Usuario } from "../types/types";
-import { UsuariosData } from "../data/UsuariosData";
-
-// const usuariosData = new UsuariosData();
+export interface IUsuariosRepository {
+    buscarUsuarios(): Promise<{ data: any | null; error: any | null }>;
+    filtrarUsuarios(filtros: any): Promise<{ data: any | null; error: any | null }>;
+    buscarUsuarioPorId(id: string): Promise<{ data: any | null; error: any | null }>;
+    criarUsuario(payload: any): Promise<{ data: any | null; error: any | null }>;
+    deletarUsuario(id: string): Promise<{ data: any | null; error: any | null }>;
+    atualizarUsuario(id: string, payload: any): Promise<{ data: any | null; error: any | null }>;
+    atualizarParcialUsuario(id: string, payload: any): Promise<{ data: any | null; error: any | null }>;
+}
 
 // normalizando valores para string ou nulo
 function normalizeToStringOrNull(value: any): string | null {
@@ -26,10 +32,10 @@ function normalizeDateToISOStringOrNull(value: any): string | null {
 }
 
 export class UsuariosServices {
-    private usuariosData: UsuariosData;
+    private usuariosData: IUsuariosRepository;
 
-    constructor(usuariosData?: UsuariosData) {
-        this.usuariosData = usuariosData ?? new UsuariosData();
+    constructor(usuariosData: IUsuariosRepository) {
+        this.usuariosData = usuariosData;
     }
 
     async listarUsuarios(): Promise<ApiResponse<Usuario[]>> {

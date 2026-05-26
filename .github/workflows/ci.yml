@@ -1,0 +1,37 @@
+name: API CI - Testes e Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Baixar o código do repositório
+      uses: actions/checkout@v4
+
+    - name: Configurar o Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Instalar as dependências do projeto
+      run: npm install
+
+    - name: Compilar o TypeScript (Build)
+      run: npm run build
+
+    - name: Executar todos os testes (Jest)
+      run: npm run test
+      env:
+        SUPABASE_URL: "https://teste123.supabase.co"
+        SUPABASE_KEY: "chave-falsa-apenas-para-testes"
+        SUPABASE_SERVICE_ROLE_KEY: "chave-service-role-falsa-para-testes"
