@@ -11,7 +11,7 @@ COPY package*.json./
 RUN npm install
 
 # Copia todo o resto do código da API
-COPY..
+COPY . .
 
 # Compila o código TypeScript para JavaScript (gera a pasta /dist)
 RUN npm run build
