@@ -1,7 +1,13 @@
 import request from "supertest";
 import { app } from "../app";
+import { FarmaciasData } from "../data/FarmaciasData";
+
+jest.mock("../data/FarmaciasData");
 
 describe("Farmácias E2E Tests", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
   /*
    * TESTE 1 - criar farmácia sem campos obrigatórios
    * Método - POST /farmacias
@@ -38,6 +44,11 @@ describe("Farmácias E2E Tests", () => {
    */
   describe("GET /farmacias/bairro/:bairro - Bairro sem farmácias", () => {
     it("deve retornar array vazio para bairro sem farmácias", async () => {
+
+        (FarmaciasData.prototype.buscarFarmaciasPorBairro as jest.Mock).mockResolvedValue({
+            data: [],
+            error: null,
+        });
       // Provavelmente não existe no banco de dados
       const response = await request(app).get(
         "/farmacias/bairro/Bairro Inexistente Teste E2E"
