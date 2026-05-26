@@ -6,6 +6,7 @@
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge\&logo=supabase\&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)
 ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge\&logo=jest\&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 
 API RESTful desenvolvida em **Node.js**, **TypeScript**, **Express** e **Supabase** para gerenciar usuários, farmácias e medicamentos relacionados ao contexto do programa Farmácia Popular.
 
@@ -17,6 +18,9 @@ O projeto foi estruturado com separação em camadas, padronização de resposta
 
 * **URL da API:** https://farmacia-ja-api.onrender.com
 * **Documentação Postman:** [Abrir Collection no Postman](https://documenter.getpostman.com/view/49690742/2sB3dQv9LL)
+* **Esta API possui uma documentação interativa completa, permitindo que você visualize todos os endpoints e realize testes diretamente pelo navegador (Swagger):** [https://farmacia-ja-api.onrender.com/docs](https://farmacia-ja-api.onrender.com/docs)
+
+---
 
 ---
 
