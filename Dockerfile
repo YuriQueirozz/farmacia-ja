@@ -29,7 +29,7 @@ COPY package*.json ./
 RUN npm install --omit=dev
 
 # Copia a pasta /dist compilada no estágio anterior
-COPY --from=builder /app/dist./dist
+COPY --from=builder /app/dist ./dist
 
 # Expõe a porta que a API vai rodar
 EXPOSE 3000
