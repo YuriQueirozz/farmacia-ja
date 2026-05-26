@@ -3,6 +3,7 @@ import cors from "cors";
 import usuariosRoutes from "./routes/usuariosRoutes";
 import medicamentosRoutes from "./routes/medicamentosRoutes";
 import farmaciasRoutes from "./routes/farmaciasRoutes";
+import { setupSwagger } from "./swagger";
 
 export const app = express();
 
@@ -18,6 +19,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+setupSwagger(app);
 
 app.use("/usuarios", usuariosRoutes);
 app.use("/medicamentos", medicamentosRoutes);
