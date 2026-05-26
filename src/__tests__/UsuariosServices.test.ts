@@ -30,7 +30,6 @@ describe("UsuariosServices - testes unitários", () => {
     });
 
     it("listarUsuarios - sucesso", async () => {
-        
         mockRepository.buscarUsuarios.mockResolvedValue({ data: [makeFakeUser()], error: null });
         
         const res = await service.listarUsuarios();
@@ -41,7 +40,6 @@ describe("UsuariosServices - testes unitários", () => {
     });
 
     it("listarUsuarios - erro da camada de dados", async () => {
-
         mockRepository.buscarUsuarios.mockResolvedValue({
             data: null,
             error: { message: "DB error" },
@@ -96,7 +94,12 @@ describe("UsuariosServices - testes unitários", () => {
             cpf: "99988877766",
             tipo: "cliente",
         };
-        const created = { ...makeFakeUser("u2"), email: payload.email } as any;
+        const created = {
+            id: "u1",
+           ...payload,
+            endereco: null,
+            data_nascimento: null,
+        };
 
         mockRepository.criarUsuario.mockResolvedValue({ data: created, error: null });
 
@@ -104,19 +107,23 @@ describe("UsuariosServices - testes unitários", () => {
 
         expect(res.success).toBe(true);
         expect((res.data as any).email).toBe(payload.email);
-        expect(mockRepository.criarUsuario).toHaveBeenCalled();
+        
+        expect(mockRepository.criarUsuario).toHaveBeenCalledWith(
+            expect.objectContaining({
+                email: payload.email.toLowerCase(),
+                senha: payload.senha,
+            })
+        );
     });
 
     it("criarUsuario - validação (faltando campos obrigatórios)", async () => {
-
-        const res = await service.criarUsuario({ email: "a@a.com" }); // falta senha/nome/cpf/tipo
+        const res = await service.criarUsuario({ email: "a@a.com" }); 
 
         expect(res.success).toBe(false);
         expect(res.error).toBe("VALIDATION_ERROR");
         expect(mockRepository.criarUsuario).not.toHaveBeenCalled();
     });
 
-    // TESTE NOVO
     it("criarUsuario - erro por CPF duplicado (Tratamento Defensivo)", async () => {
         const payload = {
             email: "x@x.com",
@@ -145,7 +152,7 @@ describe("UsuariosServices - testes unitários", () => {
         mockRepository.buscarUsuarioPorId.mockResolvedValue({ data: fakeUser, error: null });
         mockRepository.buscarUsuarios.mockResolvedValue({ data: [fakeUser], error: null });
         mockRepository.atualizarParcialUsuario.mockResolvedValue({
-            data: { ...fakeUser, nome: "Novo" },
+            data: {...fakeUser, nome: "Novo" },
             error: null,
         });
 
@@ -178,5 +185,53 @@ describe("UsuariosServices - testes unitários", () => {
         expect(res.success).toBe(true);
         expect(res.message).toMatch(/removido/);
         expect(mockRepository.deletarUsuario).toHaveBeenCalledWith(id);
+    });
+
+    it("criarUsuario - duplicidade CPF (da branch main)", async () => {
+        const payload = {
+            email: "a@a.com",
+            senha: "123",
+            nome: "X",
+            cpf: "11122233344",
+            tipo: "cliente",
+        };
+
+        mockRepository.criarUsuario.mockResolvedValue({
+            data: null,
+            error: {
+                code: "23505",
+                message: 'duplicate key value violates unique constraint "usuarios_cpf_key"',
+            },
+        });
+
+        const res = await service.criarUsuario(payload);
+
+        expect(res.success).toBe(false);
+        expect(res.error).toBe("DUPLICATE_CPF");
+        expect(mockRepository.criarUsuario).toHaveBeenCalled();
+    });
+
+    it("criarUsuario - duplicidade email no auth -> DUPLICATE_EMAIL", async () => {
+        const payload = {
+            email: "a@a.com",
+            senha: "123",
+            nome: "X",
+            cpf: "11122233344",
+            tipo: "cliente",
+        };
+
+        mockRepository.criarUsuario.mockResolvedValue({
+            data: null,
+            error: {
+                code: "DUPLICATE_EMAIL",
+                message: "Email already registered",
+            },
+        });
+
+        const res = await service.criarUsuario(payload);
+
+        expect(res.success).toBe(false);
+        expect(res.error).toBe("DUPLICATE_EMAIL");
+        expect(mockRepository.criarUsuario).toHaveBeenCalled();
     });
 });
